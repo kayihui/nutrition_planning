@@ -1,0 +1,16 @@
+- `[x]` 1. Update HTML structure
+  - `[x]` Add Gender dropdown to member inputs
+  - `[x]` Add Day Tabs navigation container
+  - `[x]` Add Portion Assignment Modal layout
+- `[x]` 2. Update CSS styles
+  - `[x]` Style Day Tabs
+  - `[x]` Style Portion Assignment Modal
+  - `[x]` Style detailed meal chips (showing portions)
+- `[x]` 3. Update JavaScript Logic
+  - `[x]` Update data structure to track days and per-member portions
+  - `[x]` Wire up Gender selector (store in state)
+  - `[x]` Build Day Tabs generation and click handlers
+  - `[x]` Build Portion Modal open/close and save logic
+  - `[x]` Update daily protein calculation to read from current day's portions
+  - `[x]` Update shopping list aggregation logic
+- `[x]` 4. Final verification and walkthrough

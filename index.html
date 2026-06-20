@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plan protein meals for your household. Assign breakfast, lunch, and dinner foods, set how many days to plan, and get a smart shopping list.">
+  <meta name="color-scheme" content="dark light">
+  <title>ProteinFuel &mdash; Family Meal Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+
+  <header class="site-header">
+    <div class="logo"><span class="logo-icon">&#9889;</span><span class="logo-text">ProteinFuel</span></div>
+    <p class="tagline">Smart meal planning for your whole household</p>
+  </header>
+
+  <main>
+    <!-- ========== STEP 1: HOUSEHOLD ========== -->
+    <section id="step-family" class="step-section">
+      <h1 class="section-title">Who are we planning for?</h1>
+      <p class="section-subtitle">Add each person in your household</p>
+      <div id="members-list" class="members-list"></div>
+      <button type="button" id="add-member-btn" class="add-member-btn"><span class="add-icon">+</span><span>Add Family Member</span></button>
+      <button type="button" id="to-step2-btn" class="cta-btn" disabled><span class="btn-text">Plan Meals</span><span class="btn-icon">&rarr;</span></button>
+    </section>
+
+    <!-- ========== STEP 2: MEAL PLANNER ========== -->
+    <section id="step-planner" class="step-section hidden">
+      
+      <!-- Days selector -->
+      <div class="days-row">
+        <label for="plan-days" class="days-label">Plan for</label>
+        <div class="days-stepper">
+          <button type="button" class="stepper-btn" id="days-minus" aria-label="Decrease days">&minus;</button>
+          <input type="number" id="plan-days" class="days-input" value="1" min="1" max="14">
+          <button type="button" class="stepper-btn" id="days-plus" aria-label="Increase days">+</button>
+        </div>
+        <span class="days-suffix">days</span>
+      </div>
+
+      <!-- Household summary bar -->
+      <div class="glass-card household-bar">
+        <div class="hbar-left">
+          <span class="hbar-label">Household Daily Target</span>
+          <div class="hbar-macros">
+            <div class="hbar-macro"><span class="hm-val" id="ht-cal">0</span><span class="hm-lbl">kcal</span></div>
+            <div class="hbar-macro"><span class="hm-val" id="ht-pro">0</span><span class="hm-lbl">g Pro</span></div>
+            <div class="hbar-macro"><span class="hm-val" id="ht-crb">0</span><span class="hm-lbl">g Carb</span></div>
+            <div class="hbar-macro"><span class="hm-val" id="ht-fat">0</span><span class="hm-lbl">g Fat</span></div>
+          </div>
+        </div>
+        <div class="hbar-right" id="hbar-pills"></div>
+      </div>
+
+      <!-- Day Tabs Navigation -->
+      <div class="day-tabs-container" id="day-tabs-container">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Daily protein progress (For the current selected day) -->
+      <div class="daily-progress-container">
+        <div class="dp-header">
+          <span class="dp-label">Daily Progress for <span id="dp-day-label">Day 1</span></span>
+        </div>
+        <div class="daily-progress-list" id="daily-progress-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Meal sections -->
+      <div class="meals-container">
+        <div class="meal-section" id="meal-breakfast">
+          <div class="meal-header">
+            <div class="meal-title-row">
+              <span class="meal-emoji">&#9749;</span>
+              <h2 class="meal-name">Breakfast</h2>
+            </div>
+            <div class="meal-macros" id="macros-breakfast"></div>
+          </div>
+          <div class="meal-chips" id="chips-breakfast"></div>
+          <div class="meal-actions">
+            <button type="button" class="meal-suggest-btn" data-meal="breakfast">✨ Auto-Suggest</button>
+            <button type="button" class="meal-add-btn" data-meal="breakfast"><span>+ Add food</span></button>
+          </div>
+          <div class="meal-picker hidden" id="picker-breakfast"></div>
+        </div>
+
+        <div class="meal-section" id="meal-lunch">
+          <div class="meal-header">
+            <div class="meal-title-row">
+              <span class="meal-emoji">&#127860;</span>
+              <h2 class="meal-name">Lunch</h2>
+            </div>
+            <div class="meal-macros" id="macros-lunch"></div>
+          </div>
+          <div class="meal-chips" id="chips-lunch"></div>
+          <div class="meal-actions">
+            <button type="button" class="meal-suggest-btn" data-meal="lunch">✨ Auto-Suggest</button>
+            <button type="button" class="meal-add-btn" data-meal="lunch"><span>+ Add food</span></button>
+          </div>
+          <div class="meal-picker hidden" id="picker-lunch"></div>
+        </div>
+
+        <div class="meal-section" id="meal-dinner">
+          <div class="meal-header">
+            <div class="meal-title-row">
+              <span class="meal-emoji">&#127869;</span>
+              <h2 class="meal-name">Dinner</h2>
+            </div>
+            <div class="meal-macros" id="macros-dinner"></div>
+          </div>
+          <div class="meal-chips" id="chips-dinner"></div>
+          <div class="meal-actions">
+            <button type="button" class="meal-suggest-btn" data-meal="dinner">✨ Auto-Suggest</button>
+            <button type="button" class="meal-add-btn" data-meal="dinner"><span>+ Add food</span></button>
+          </div>
+          <div class="meal-picker hidden" id="picker-dinner"></div>
+        </div>
+      </div>
+
+      <!-- Shopping list -->
+      <div id="shop-section" class="shop-section hidden">
+        <h2 class="section-title shop-heading">&#128722; Shopping List</h2>
+        <p class="section-subtitle" id="shop-subtitle">Aggregated for your plan</p>
+        <div class="glass-card shop-card">
+          <div id="shop-list" class="shop-list"></div>
+          <div class="shop-total" id="shop-totals-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <button type="button" id="back-btn" class="cta-btn outline-btn"><span class="btn-text">&larr; Edit Household</span></button>
+    </section>
+  </main>
+
+  <!-- Portion Assignment Modal -->
+  <div id="portion-modal" class="modal hidden" aria-modal="true" role="dialog">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Assign Portions</h3>
+        <button type="button" class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <p class="modal-subtitle" id="modal-subtitle">How many servings for each person?</p>
+      
+      <div class="modal-body" id="modal-body">
+        <!-- Rendered by JS -->
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="cta-btn" id="modal-save-btn">Save Portions</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer"><p>Science-backed nutrition data &middot; Not medical advice &middot; Consult a dietitian for personalized plans</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
